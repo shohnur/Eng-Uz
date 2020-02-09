@@ -64,4 +64,50 @@ class Database private constructor(context: Context) : DataBaseHelper(context, "
         return data
     }
 
+    fun getSeenWords(): ArrayList<WordData> {
+        val data = arrayListOf<WordData>()
+        val cursor =
+            mDataBase.rawQuery("select * from data where isSeen=? and isDel=?", arrayOf("1", "0"))
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            data.add(
+                WordData(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getInt(4),
+                    cursor.getInt(5),
+                    cursor.getInt(6)
+                )
+            )
+            cursor.moveToNext()
+        }
+        cursor.close()
+        return data
+    }
+
+    fun getDeletedWords(): ArrayList<WordData> {
+        val data = arrayListOf<WordData>()
+        val cursor =
+            mDataBase.rawQuery("select * from data where isDel=?", arrayOf("1"))
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            data.add(
+                WordData(
+                    cursor.getInt(0),
+                    cursor.getString(1),
+                    cursor.getString(2),
+                    cursor.getString(3),
+                    cursor.getInt(4),
+                    cursor.getInt(5),
+                    cursor.getInt(6)
+                )
+            )
+            cursor.moveToNext()
+        }
+        cursor.close()
+        return data
+    }
+
 }
