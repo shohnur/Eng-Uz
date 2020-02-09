@@ -109,6 +109,5 @@ class Database private constructor(context: Context) : DataBaseHelper(context, "
         cursor.close()
         return data
     }
-    
 
 }
