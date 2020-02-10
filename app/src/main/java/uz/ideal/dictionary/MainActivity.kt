@@ -28,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         clear.visibility = View.GONE
 
 
+
         clear.setOnClickListener {
             val dialog = AlertDialog.Builder(this)
             dialog.setTitle("Warning!!!").setMessage("Are you sure to clear this list?")
@@ -143,4 +144,6 @@ class MainActivity : AppCompatActivity() {
             clear.visibility = View.VISIBLE
         }
     }
+
+
 }
