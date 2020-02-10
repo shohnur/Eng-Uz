@@ -10,11 +10,14 @@ import uz.ideal.dictionary.MainActivity
 import uz.ideal.dictionary.R
 import uz.ideal.dictionary.adapters.WordAdapter
 import uz.ideal.dictionary.database.Database
+import uz.ideal.dictionary.models.WordData
+import uz.ideal.dictionary.text
 
 class PageFragment : Fragment() {
 
     var recyclerView: RecyclerView? = null
     var adapter = WordAdapter()
+    var data = arrayListOf<WordData>()
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,15 +34,30 @@ class PageFragment : Fragment() {
         val arguments = arguments!!
         when (arguments.getInt("page")) {
             1 -> {
-                adapter.data = Database.getBase().getAllWords()
+                data = Database.getBase().getAllWords()
             }
             2 -> {
-                adapter.data = Database.getBase().getFavouriteWords()
+                data = Database.getBase().getFavouriteWords()
             }
             3 -> {
-                adapter.data = Database.getBase().getSeenWords()
+                data = Database.getBase().getSeenWords()
             }
         }
+        if (text != "") {
+            when (arguments.getInt("page")) {
+                1 -> {
+                    data = Database.getBase().searchFromAllWords(text)
+                }
+                2 -> {
+                    data = Database.getBase().searchFromFavourites(text)
+                }
+                3 -> {
+                    data = Database.getBase().searchFromSeen(text)
+                }
+            }
+        }
+
+        adapter.data = data
         recyclerView!!.adapter = adapter
         MainActivity.onUpdate = object : MainActivity.Companion.OnUpdate {
             override fun goTo(pos: Int) {
