@@ -38,6 +38,7 @@ class Dialog(context: Context, title: String) : AlertDialog(context) {
                 if (word!!.text.toString() == "") {
                     word!!.error = "You must fill this"
                 }
+
                 if (translation!!.text.toString() == "") {
                     translation!!.error = "You must fill this"
                 }
