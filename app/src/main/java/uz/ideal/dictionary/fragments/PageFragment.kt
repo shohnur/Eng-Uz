@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
+import uz.ideal.dictionary.MainActivity
 import uz.ideal.dictionary.R
 import uz.ideal.dictionary.adapters.WordAdapter
 import uz.ideal.dictionary.database.Database
@@ -40,6 +41,12 @@ class PageFragment : Fragment() {
             }
         }
         recyclerView!!.adapter = adapter
+        MainActivity.onUpdate = object : MainActivity.Companion.OnUpdate {
+            override fun goTo(pos: Int) {
+                recyclerView!!.smoothScrollToPosition(pos)
+
+            }
+        }
 
     }
 
@@ -49,6 +56,7 @@ class PageFragment : Fragment() {
             fragment.arguments = bundle
             return fragment
         }
+
     }
 
 }

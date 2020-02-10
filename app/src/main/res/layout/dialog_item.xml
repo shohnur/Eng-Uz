@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="8dp">
+
+    <EditText
+        android:id="@+id/word"
+        android:layout_width="300dp"
+        android:layout_height="?actionBarSize"
+        android:hint="Word"
+        android:paddingLeft="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/translation"
+        android:layout_width="300dp"
+        android:layout_height="?actionBarSize"
+        android:hint="Translation"
+        android:paddingLeft="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <EditText
+        android:id="@+id/description"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:hint="Description"
+        android:paddingLeft="8dp"
+        android:textColor="@android:color/black"
+        android:textSize="18sp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?actionBarSize"
+        android:layout_marginTop="8dp">
+
+        <Button
+            android:id="@+id/save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:background="?selectableItemBackground"
+            android:text="Save"
+            android:textAllCaps="false"
+            android:textColor="#AA4141"
+            android:textSize="18sp" />
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_toStartOf="@id/save"
+            android:layout_toLeftOf="@id/save"
+            android:background="?selectableItemBackground"
+            android:text="Cancel"
+            android:textAllCaps="false"
+            android:textColor="#AA4141"
+            android:textSize="18sp" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

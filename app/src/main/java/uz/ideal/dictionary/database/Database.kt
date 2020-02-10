@@ -270,5 +270,13 @@ class Database private constructor(context: Context) : DataBaseHelper(context, "
         return data
     }
 
+    fun update(id: Int, word: String, translation: String, description: String) {
+        val values = ContentValues()
+        values.put("word", word)
+        values.put("translation", translation)
+        values.put("description", description)
+        mDataBase.update("data", values, "id=?", arrayOf(id.toString()))
+    }
+
 
 }
