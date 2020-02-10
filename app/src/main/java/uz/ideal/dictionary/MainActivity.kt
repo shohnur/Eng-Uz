@@ -2,6 +2,7 @@ package uz.ideal.dictionary
 
 import android.os.Bundle
 import android.view.View
+import android.widget.SearchView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
@@ -13,7 +14,7 @@ import uz.ideal.dictionary.dialogs.Dialog
 import uz.ideal.dictionary.models.WordData
 
 @Suppress("NAME_SHADOWING")
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private var adapter: PageAdapter? = null
     var position = 0
@@ -26,6 +27,8 @@ class MainActivity : AppCompatActivity() {
         viewPager.adapter = adapter
         addWord.visibility = View.VISIBLE
         clear.visibility = View.GONE
+
+        search_view.setOnQueryTextListener(this)
 
 
 
@@ -122,6 +125,11 @@ class MainActivity : AppCompatActivity() {
             fun goTo(pos: Int)
         }
 
+        interface OnSearch {
+            fun search(text: String, pos: Int)
+        }
+
+        var onSearch: OnSearch? = null
         var onUpdate: OnUpdate? = null
     }
 
@@ -143,6 +151,19 @@ class MainActivity : AppCompatActivity() {
             addWord.visibility = View.GONE
             clear.visibility = View.VISIBLE
         }
+    }
+
+    override fun onQueryTextSubmit(query: String?): Boolean = false
+
+    override fun onQueryTextChange(newText: String?): Boolean {
+        text = if (newText != "") {
+            newText!!
+        } else {
+            ""
+        }
+
+        fullReload()
+        return true
     }
 
 
