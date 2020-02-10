@@ -116,8 +116,6 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
                 dialog.show()
             }
         }
-
-
     }
 
     companion object {
