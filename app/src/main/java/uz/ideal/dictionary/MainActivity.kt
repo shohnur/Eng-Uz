@@ -1,6 +1,8 @@
 package uz.ideal.dictionary
 
 import android.os.Bundle
+import android.view.View
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager.widget.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
@@ -10,6 +12,7 @@ import uz.ideal.dictionary.database.Database
 import uz.ideal.dictionary.dialogs.Dialog
 import uz.ideal.dictionary.models.WordData
 
+@Suppress("NAME_SHADOWING")
 class MainActivity : AppCompatActivity() {
 
     private var adapter: PageAdapter? = null
@@ -21,6 +24,32 @@ class MainActivity : AppCompatActivity() {
 
         adapter = PageAdapter(supportFragmentManager)
         viewPager.adapter = adapter
+        addWord.visibility = View.VISIBLE
+        clear.visibility = View.GONE
+
+
+        clear.setOnClickListener {
+            val dialog = AlertDialog.Builder(this)
+            dialog.setTitle("Warning!!!").setMessage("Are you sure to clear this list?")
+                .setPositiveButton("Sure") { dialog, _ ->
+                    val d = Database.getBase().getSeenWords()
+                    for (i in d.indices) {
+                        Database.getBase().removeFromSeen(d[i].id)
+                    }
+                    dialog.cancel()
+                    fullReload()
+                }.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }.create().show()
+        }
+        addWord.setOnClickListener {
+            val dialog = Dialog(this, "New word")
+            dialog.onSaveClicked = object : Dialog.OnSaveClicked {
+                override fun save(word: String, translation: String, description: String) {
+                    Database.getBase().newWord(word, translation, description)
+                    fullReload()
+                }
+            }
+            dialog.show()
+        }
 
         WordAdapter.onChanged = object : WordAdapter.Companion.OnChanged {
             override fun change() = fullReload()
@@ -37,6 +66,18 @@ class MainActivity : AppCompatActivity() {
                 positionOffsetPixels: Int
             ) {
                 this@MainActivity.position = position
+                if (position == 0) {
+                    addWord.visibility = View.VISIBLE
+                    clear.visibility = View.GONE
+                }
+                if (position == 1) {
+                    addWord.visibility = View.GONE
+                    clear.visibility = View.GONE
+                }
+                if (position == 2) {
+                    addWord.visibility = View.GONE
+                    clear.visibility = View.VISIBLE
+                }
             }
 
             override fun onPageSelected(position: Int) {
@@ -73,7 +114,6 @@ class MainActivity : AppCompatActivity() {
         }
 
 
-
     }
 
     companion object {
@@ -89,5 +129,18 @@ class MainActivity : AppCompatActivity() {
         adapter = PageAdapter(supportFragmentManager)
         viewPager.adapter = adapter
         viewPager.currentItem = position
+
+        if (position == 0) {
+            addWord.visibility = View.VISIBLE
+            clear.visibility = View.GONE
+        }
+        if (position == 1) {
+            addWord.visibility = View.GONE
+            clear.visibility = View.GONE
+        }
+        if (position == 2) {
+            addWord.visibility = View.GONE
+            clear.visibility = View.VISIBLE
+        }
     }
 }
