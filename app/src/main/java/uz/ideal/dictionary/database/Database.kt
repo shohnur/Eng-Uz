@@ -9,7 +9,7 @@ import uz.ideal.dictionary.models.WordData
 class Database private constructor(context: Context) : DataBaseHelper(context, "words.db") {
 
     companion object {
-        var myBase: Database? = null
+        private var myBase: Database? = null
 
         fun init(context: Context) {
             if (myBase == null)
