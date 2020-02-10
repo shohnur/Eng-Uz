@@ -112,8 +112,6 @@ class MainActivity : AppCompatActivity() {
                 dialog.show()
             }
         }
-
-
     }
 
     companion object {

@@ -13,12 +13,9 @@ class SplashActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
 
-        var handler = Handler().postDelayed(object : Runnable {
-            override fun run() {
-                startActivity(Intent(this@SplashActivity, MainActivity::class.java))
-                finish()
-            }
-
+        var handler = Handler().postDelayed({
+            startActivity(Intent(this@SplashActivity, MainActivity::class.java))
+            finish()
         }, SPLASH_TIME_OUT.toLong())
     }
 }
